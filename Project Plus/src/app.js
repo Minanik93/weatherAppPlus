@@ -1,5 +1,5 @@
 function displayTemperature(response) {
-  console.log(response.data);
+  //   console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
@@ -42,8 +42,16 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day}  ${hours}:${minuts}`;
 }
-
-let city = "Behbahan";
-let apiKey = "866a4c8cf7e6c845713b2557bbaa0281";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayTemperature);
+function search(city) {
+  let apiKey = "866a4c8cf7e6c845713b2557bbaa0281";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
+search("Behbahan");
